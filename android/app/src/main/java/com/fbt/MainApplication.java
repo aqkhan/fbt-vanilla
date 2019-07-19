@@ -7,6 +7,7 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
       
       // Firebase auth
       packages.add(new RNFirebaseAuthPackage());
+      //packages.add(new RNGoogleSigninPackage());
       
       return packages;
     }

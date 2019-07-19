@@ -30,6 +30,8 @@ target 'fbt' do
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+
   target 'fbtTests' do
     inherit! :search_paths
     # Pods for testing

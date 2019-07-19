@@ -27,10 +27,43 @@ import {
 
 import firebase from 'react-native-firebase';
 
+// Google Auth
+import { GoogleSignin } from 'react-native-google-signin';
+
 const anonSignIn = () => {
   firebase.auth().signInAnonymously()
     .then( () => console.log('Signed in!'))
     .catch( err => console.log(err) );
+}
+
+// Google auth
+const googleLogin = async () => {
+  try {
+    console.log('Inside custom func');
+    // add any configuration settings here:
+    await GoogleSignin.configure({
+      webClientId: "887552431013-v84grmssvgejrv7lj1s76p9gapu1rgli.apps.googleusercontent.com"
+    });
+
+    console.log('After configure');
+
+    const data = await GoogleSignin.signIn();
+
+    // create a new firebase credential with the token
+
+    console.log('After signIn');
+
+    const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+
+    console.log('After Credentials');
+
+    // login with credential
+    const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+
+    console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+  } catch (e) {
+    console.log('Code bich error: ', e);
+  }
 }
 
 const App = () => {
@@ -54,7 +87,12 @@ const App = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <TouchableOpacity style={styles.button} onPress={ () => anonSignIn() }>
-                <Text style={ styles.buttonText }>Sign in MF</Text>
+                <Text style={ styles.buttonText }>Sign in Anonymously</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.sectionContainer}>
+              <TouchableOpacity style={styles.button2} onPress={ () => googleLogin() }>
+                <Text style={ styles.buttonText2 }>Sign in with Google</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.sectionContainer}>
@@ -125,9 +163,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'orange',
     padding: 10,
   },
+  button2: {
+    alignItems: 'center',
+    backgroundColor: 'blue',
+    padding: 10,
+  },
   buttonText: {
     fontWeight: '900',
     fontSize: 24
+  },
+  buttonText2: {
+    fontWeight: '900',
+    fontSize: 24,
+    color: 'white'
   }
 });
 
