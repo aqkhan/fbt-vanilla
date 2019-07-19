@@ -23,7 +23,7 @@ import {
   Colors,
   DebugInstructions,
   ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+} from './src/demo';
 
 const App = () => {
   return (
