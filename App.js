@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,7 +25,17 @@ import {
   ReloadInstructions,
 } from './src/demo';
 
+import firebase from 'react-native-firebase';
+
+const anonSignIn = () => {
+  firebase.auth().signInAnonymously()
+    .then( () => console.log('Signed in!'))
+    .catch( err => console.log(err) );
+}
+
 const App = () => {
+  //const [ anonAuth, updateAuth ] = useState(false);
+  
   return (
     <Fragment>
       <StatusBar barStyle="dark-content" />
@@ -43,7 +53,7 @@ const App = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <TouchableOpacity style={styles.button} onPress={ () => console.log('Hit it') }>
+              <TouchableOpacity style={styles.button} onPress={ () => anonSignIn() }>
                 <Text style={ styles.buttonText }>Sign in MF</Text>
               </TouchableOpacity>
             </View>
