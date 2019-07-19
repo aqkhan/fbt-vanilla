@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "887552431013",
+    "firebase_url": "https://fur-baby-tracker-dev.firebaseio.com",
+    "project_id": "fur-baby-tracker-dev",
+    "storage_bucket": "fur-baby-tracker-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887552431013:android:fc842e4e92982e1d",
+        "android_client_info": {
+          "package_name": "com.fbt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887552431013-d587uaelqgm5dh2vevv1hgpe6t3fjgel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fbt",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "887552431013-v84grmssvgejrv7lj1s76p9gapu1rgli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuqrLho7fNqZhNuk8HuGsMQfmMf4eOYpo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887552431013-v84grmssvgejrv7lj1s76p9gapu1rgli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
