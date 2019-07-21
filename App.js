@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,73 +14,49 @@ import {
   View,
   Text,
   StatusBar,
-  TouchableOpacity
 } from 'react-native';
 
 import {
   Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from './src/demo';
-
-import firebase from 'react-native-firebase';
 
 // Google Auth
 import GoogleSigninButton from './src/Auth/GoogleSigninButton';
 
-const anonSignIn = () => {
-  firebase.auth().signInAnonymously()
-    .then( () => console.log('Signed in!'))
-    .catch( err => console.log(err) );
-}
+import { getData } from './src/Store/GetStore';
 
 const App = () => {
-
-  
+  const [ userData, setUserData ] = useState(false);
+  getData('userData')
+    .then( data => setUserData(data) )
   return (
     <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? (<View style={styles.engine}>
-              <Text style={styles.footer}>Engine: NOT Hermes</Text>
-            </View>) : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}>
+            <Header />
+            {global.HermesInternal == null ? (<View style={styles.engine}>
+                <Text style={styles.footer}>Engine: NOT Hermes</Text>
+              </View>) : (
+              <View style={styles.engine}>
+                <Text style={styles.footer}>Engine: Hermes</Text>
+              </View>
+            )}
+            <View style={styles.body}>
+              <View style={styles.sectionContainer}>
+                {
+                  ( userData === false ) ? <GoogleSigninButton /> : <Text>Welcome { userData.displayName } </Text>
+                }
+              </View>
             </View>
-          )}
-          <View style={styles.body}>
-            <GoogleSigninButton />
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                This can be anything. We're giving a demo!
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
-  );
-};
+          </ScrollView>
+        </SafeAreaView>
+      </Fragment>
+  )
+}
 
 const styles = StyleSheet.create({
   scrollView: {
