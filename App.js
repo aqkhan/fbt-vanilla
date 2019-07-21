@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, {Fragment, useState} from 'react';
+import React, { Fragment } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -28,7 +28,7 @@ import {
 import firebase from 'react-native-firebase';
 
 // Google Auth
-import { GoogleSignin } from 'react-native-google-signin';
+import GoogleSigninButton from './src/Auth/GoogleSigninButton';
 
 const anonSignIn = () => {
   firebase.auth().signInAnonymously()
@@ -36,38 +36,8 @@ const anonSignIn = () => {
     .catch( err => console.log(err) );
 }
 
-// Google auth
-const googleLogin = async () => {
-  try {
-    console.log('Inside custom func');
-    // add any configuration settings here:
-    await GoogleSignin.configure({
-      webClientId: "887552431013-v84grmssvgejrv7lj1s76p9gapu1rgli.apps.googleusercontent.com"
-    });
-
-    console.log('After configure');
-
-    const data = await GoogleSignin.signIn();
-
-    // create a new firebase credential with the token
-
-    console.log('After signIn');
-
-    const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
-
-    console.log('After Credentials');
-
-    // login with credential
-    const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-
-    console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-  } catch (e) {
-    console.log('Code bich error: ', e);
-  }
-}
-
 const App = () => {
-  //const [ anonAuth, updateAuth ] = useState(false);
+
   
   return (
     <Fragment>
@@ -85,16 +55,7 @@ const App = () => {
             </View>
           )}
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <TouchableOpacity style={styles.button} onPress={ () => anonSignIn() }>
-                <Text style={ styles.buttonText }>Sign in Anonymously</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.sectionContainer}>
-              <TouchableOpacity style={styles.button2} onPress={ () => googleLogin() }>
-                <Text style={ styles.buttonText2 }>Sign in with Google</Text>
-              </TouchableOpacity>
-            </View>
+            <GoogleSigninButton />
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>See Your Changes</Text>
               <Text style={styles.sectionDescription}>
@@ -157,25 +118,6 @@ const styles = StyleSheet.create({
     padding: 4,
     paddingRight: 12,
     textAlign: 'right',
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: 'orange',
-    padding: 10,
-  },
-  button2: {
-    alignItems: 'center',
-    backgroundColor: 'blue',
-    padding: 10,
-  },
-  buttonText: {
-    fontWeight: '900',
-    fontSize: 24
-  },
-  buttonText2: {
-    fontWeight: '900',
-    fontSize: 24,
-    color: 'white'
   }
 });
 
